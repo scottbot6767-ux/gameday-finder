@@ -338,24 +338,44 @@ const TEAM_CITIES = {
   'Sabres': 'Buffalo', 'Senators': 'Ottawa', 'Sharks': 'San Francisco', 'Stars': 'Dallas', 'Wild': 'Minneapolis',
 };
 
-// All cities where teams play
-const ALL_CITIES = [
-  'San Francisco', 'New York', 'Los Angeles', 'Chicago', 'Boston', 'Dallas', 'Miami', 'Seattle',
-  'Denver', 'Phoenix', 'Philadelphia', 'Atlanta', 'Houston', 'Detroit', 'Minneapolis',
-  'Cleveland', 'Cincinnati', 'Buffalo', 'Tampa Bay', 'Kansas City', 'Indianapolis', 'Washington',
-  'Jacksonville', 'Green Bay', 'Charlotte', 'Las Vegas', 'Baltimore', 'New Orleans', 'Pittsburgh',
-  'Nashville', 'Oakland', 'Toronto', 'Milwaukee', 'San Diego', 'Sacramento', 'Memphis', 'Salt Lake City',
-  'Orlando', 'San Antonio', 'Oklahoma City', 'Portland', 'Columbus', 'St. Louis', 'Montreal',
-  'Vancouver', 'Calgary', 'Newark', 'Raleigh', 'Winnipeg', 'Edmonton', 'Ottawa'
-];
+// Cities by league (only cities with teams in that league)
+const CITIES_BY_LEAGUE = {
+  NFL: [
+    'San Francisco', 'New York', 'Los Angeles', 'Chicago', 'Boston', 'Dallas', 'Miami', 'Seattle',
+    'Denver', 'Phoenix', 'Philadelphia', 'Atlanta', 'Houston', 'Detroit', 'Minneapolis',
+    'Cleveland', 'Cincinnati', 'Buffalo', 'Tampa Bay', 'Kansas City', 'Indianapolis', 'Washington',
+    'Jacksonville', 'Green Bay', 'Charlotte', 'Las Vegas', 'Baltimore', 'New Orleans', 'Pittsburgh',
+    'Nashville'
+  ],
+  MLB: [
+    'San Francisco', 'New York', 'Los Angeles', 'Chicago', 'Boston', 'Dallas', 'Miami', 'Seattle',
+    'Denver', 'Phoenix', 'Philadelphia', 'Atlanta', 'Houston', 'Detroit', 'Minneapolis',
+    'Cleveland', 'Cincinnati', 'Tampa Bay', 'Kansas City', 'Washington', 'Baltimore', 'Pittsburgh',
+    'Oakland', 'Toronto', 'Milwaukee', 'San Diego', 'St. Louis'
+  ],
+  NBA: [
+    'San Francisco', 'New York', 'Los Angeles', 'Chicago', 'Boston', 'Dallas', 'Miami',
+    'Denver', 'Phoenix', 'Philadelphia', 'Atlanta', 'Houston', 'Detroit', 'Minneapolis',
+    'Cleveland', 'Indianapolis', 'Washington', 'Charlotte', 'New Orleans',
+    'Toronto', 'Milwaukee', 'Sacramento', 'Memphis', 'Salt Lake City', 'Orlando', 'San Antonio',
+    'Oklahoma City', 'Portland'
+  ],
+  NHL: [
+    'San Francisco', 'New York', 'Los Angeles', 'Chicago', 'Boston', 'Dallas', 'Miami', 'Seattle',
+    'Denver', 'Phoenix', 'Philadelphia', 'Detroit', 'Minneapolis', 'Pittsburgh',
+    'Tampa Bay', 'Washington', 'Las Vegas', 'Nashville', 'St. Louis', 'Columbus',
+    'Toronto', 'Montreal', 'Vancouver', 'Calgary', 'Winnipeg', 'Edmonton', 'Ottawa', 'Raleigh', 'Buffalo'
+  ]
+};
 
 // Generate road games for a team
 function generateRoadGames(league, teamName) {
   const homeCity = TEAM_CITIES[teamName];
   const games = [];
   
-  // Get opponent cities (exclude home city)
-  const opponentCities = ALL_CITIES.filter(c => c !== homeCity);
+  // Get opponent cities FOR THIS LEAGUE ONLY (exclude home city)
+  const leagueCities = CITIES_BY_LEAGUE[league] || [];
+  const opponentCities = leagueCities.filter(c => c !== homeCity);
   
   // Generate season schedule based on league
   let seasonStart, seasonEnd, gamesCount;
@@ -384,31 +404,41 @@ function generateRoadGames(league, teamName) {
   // Generate games spread across the season
   const seasonLength = seasonEnd - seasonStart;
   
+  // Build list of opponent teams in this league with their cities
+  const opponentTeams = [];
+  for (const [team, city] of Object.entries(TEAM_CITIES)) {
+    // Check if this team is in the same league and not the user's team
+    if (opponentCities.includes(city) && team !== teamName) {
+      // Verify team is in correct league by checking if it's in our data
+      const isInLeague = (
+        (league === 'NFL' && ['49ers','Bears','Bengals','Bills','Broncos','Browns','Buccaneers','Cardinals','Chargers','Chiefs','Colts','Commanders','Cowboys','Dolphins','Eagles','Falcons','Giants','Jaguars','Jets','Lions','Packers','Panthers','Patriots','Raiders','Rams','Ravens','Saints','Seahawks','Steelers','Texans','Titans','Vikings'].includes(team)) ||
+        (league === 'MLB' && ['Angels','Astros','Athletics','Blue Jays','Braves','Brewers','Cardinals','Cubs','Diamondbacks','Dodgers','Giants','Guardians','Mariners','Marlins','Mets','Nationals','Orioles','Padres','Phillies','Pirates','Rangers','Rays','Red Sox','Reds','Rockies','Royals','Tigers','Twins','White Sox','Yankees'].includes(team)) ||
+        (league === 'NBA' && ['76ers','Bucks','Bulls','Cavaliers','Celtics','Clippers','Grizzlies','Hawks','Heat','Hornets','Jazz','Kings','Knicks','Lakers','Magic','Mavericks','Nets','Nuggets','Pacers','Pelicans','Pistons','Raptors','Rockets','Spurs','Suns','Thunder','Timberwolves','Trail Blazers','Warriors','Wizards'].includes(team)) ||
+        (league === 'NHL' && ['Avalanche','Blackhawks','Blue Jackets','Blues','Bruins','Canadiens','Canucks','Capitals','Coyotes','Devils','Ducks','Flames','Flyers','Golden Knights','Hurricanes','Islanders','Jets','Kings','Kraken','Lightning','Maple Leafs','Oilers','Panthers','Penguins','Predators','Rangers','Red Wings','Sabres','Senators','Sharks','Stars','Wild'].includes(team))
+      );
+      if (isInLeague) {
+        opponentTeams.push({ team, city });
+      }
+    }
+  }
+  
   for (let i = 0; i < displayCount; i++) {
     const randomOffset = Math.random() * seasonLength;
     const gameDate = new Date(seasonStart.getTime() + randomOffset);
     
-    // Pick a random opponent city
-    const opponentCity = opponentCities[Math.floor(Math.random() * opponentCities.length)];
-    
-    // Find a team in that city for this league, or use city name
-    let opponent = opponentCity;
-    for (const [team, city] of Object.entries(TEAM_CITIES)) {
-      if (city === opponentCity && OPPONENTS[league]?.includes(team)) {
-        opponent = team;
-        break;
-      }
-    }
+    // Pick a random opponent team
+    const opponent = opponentTeams[Math.floor(Math.random() * opponentTeams.length)];
+    if (!opponent) continue;
     
     const times = GAME_TIMES[league];
     const time = times[Math.floor(Math.random() * times.length)];
     
     games.push({
-      homeTeam: opponent,
+      homeTeam: opponent.team,
       awayTeam: teamName,
       league: league,
-      venue: getVenueForCity(opponentCity, league),
-      city: opponentCity,
+      venue: getVenueForCity(opponent.city, league),
+      city: opponent.city,
       date: gameDate,
       time: time,
     });
