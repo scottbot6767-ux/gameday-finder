@@ -386,7 +386,7 @@ body {
   height: 100%;
 }
 
-.us-map path {
+.us-map rect, .us-map path {
   fill: var(--surface);
   stroke: var(--border);
   stroke-width: 1;
@@ -394,22 +394,32 @@ body {
   cursor: pointer;
 }
 
-.us-map path:hover {
+.us-map rect:hover, .us-map path:hover {
   fill: var(--surface-raised);
 }
 
-.us-map path.active {
+.us-map rect.active, .us-map path.active {
   fill: var(--accent);
   stroke: var(--accent);
 }
 
-.us-map path.active:hover {
+.us-map rect.active:hover, .us-map path.active:hover {
   fill: #00cc6a;
 }
 
-.us-map path.home {
+.us-map rect.home, .us-map path.home {
   fill: #ff6b35;
   stroke: #ff6b35;
+}
+
+/* State labels */
+.us-map text {
+  font-family: var(--font-body);
+  font-size: 10px;
+  fill: var(--text-dim);
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 
 .map-tooltip {

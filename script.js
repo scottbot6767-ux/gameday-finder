@@ -598,21 +598,21 @@ function renderMap(games, teamName, homeCity) {
     }
   });
   
-  // Highlight states
-  const paths = mapContainer.querySelectorAll('path');
-  paths.forEach(path => {
-    const stateId = path.id;
+  // Highlight states (works with both path and rect elements)
+  const stateElements = mapContainer.querySelectorAll('path, rect');
+  stateElements.forEach(el => {
+    const stateId = el.id;
     
     if (stateId === homeState) {
-      path.classList.add('home');
+      el.classList.add('home');
     } else if (gamesByState[stateId]) {
-      path.classList.add('active');
+      el.classList.add('active');
     }
     
     // Add hover events
-    path.addEventListener('mouseenter', (e) => showTooltip(e, stateId, gamesByState[stateId], homeState));
-    path.addEventListener('mouseleave', hideTooltip);
-    path.addEventListener('mousemove', moveTooltip);
+    el.addEventListener('mouseenter', (e) => showTooltip(e, stateId, gamesByState[stateId], homeState));
+    el.addEventListener('mouseleave', hideTooltip);
+    el.addEventListener('mousemove', moveTooltip);
   });
   
   // Update team name display
