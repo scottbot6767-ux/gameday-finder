@@ -266,6 +266,32 @@
         </div>
     </header>
 
+    <!-- Map Section (hidden by default, team mode only) -->
+    <section id="mapSection" class="map-section hidden">
+        <div class="container">
+            <div class="map-header">
+                <h2 class="map-title">
+                    <span class="team-name-display"></span> Road Map
+                </h2>
+                <p class="map-subtitle">States highlighted = away games this season</p>
+            </div>
+            <div class="map-container">
+                <div id="usMap" class="us-map"></div>
+                <div id="mapTooltip" class="map-tooltip hidden"></div>
+            </div>
+            <div id="mapLegend" class="map-legend">
+                <div class="legend-item">
+                    <span class="legend-color active"></span>
+                    <span>Away Game</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color home"></span>
+                    <span>Home</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Results Section (hidden by default) -->
     <section id="results" class="results-section hidden">
         <div class="container">
