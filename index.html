@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameDay Finder — Catch a Game on Your Next Trip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <nav class="nav">
+            <div class="logo">
+                <span class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                        <path d="M10 16L14 20L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="logo-text">GAMEDAY</span>
+            </div>
+            <div class="nav-tagline">Never miss a game while traveling</div>
+        </nav>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-live"></span>
+                <span>NFL • MLB • NBA • NHL</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="title-line">FIND YOUR</span>
+                <span class="title-line accent">GAME</span>
+            </h1>
+            
+            <p class="hero-subtitle">Work trip? Catch a game while you're there.</p>
+
+            <!-- Search Form -->
+            <form class="search-form" id="searchForm">
+                <div class="search-row">
+                    <div class="input-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" placeholder="San Francisco" autocomplete="off" list="cities">
+                        <datalist id="cities">
+                            <option value="San Francisco">
+                            <option value="New York">
+                            <option value="Los Angeles">
+                            <option value="Chicago">
+                            <option value="Boston">
+                            <option value="Dallas">
+                            <option value="Miami">
+                            <option value="Seattle">
+                            <option value="Denver">
+                            <option value="Phoenix">
+                            <option value="Philadelphia">
+                            <option value="Atlanta">
+                            <option value="Houston">
+                            <option value="Detroit">
+                            <option value="Minneapolis">
+                        </datalist>
+                    </div>
+                    <div class="input-group">
+                        <label for="startDate">From</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="input-group">
+                        <label for="endDate">To</label>
+                        <input type="date" id="endDate">
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <span>Find Games</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Major Leagues</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">124</span>
+                <span class="stat-label">Pro Teams</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">2,430+</span>
+                <span class="stat-label">Games Per Season</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Results Section (hidden by default) -->
+    <section id="results" class="results-section hidden">
+        <div class="container">
+            <div class="results-header">
+                <h2 class="results-title">
+                    <span class="city-name"></span>
+                    <span class="date-range"></span>
+                </h2>
+                <button class="clear-btn" onclick="clearSearch()">New Search</button>
+            </div>
+            
+            <div class="results-grid" id="resultsGrid">
+                <!-- Games will be injected here -->
+            </div>
+
+            <div class="no-results hidden" id="noResults">
+                <div class="no-results-icon">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                        <path d="M24 24L40 40M40 24L24 40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <p>No games found for these dates.</p>
+                <span>Try expanding your date range or check a nearby city.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="container">
+            <h2 class="section-number">01</h2>
+            <h3 class="section-title">How It Works</h3>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Enter Your Trip</h4>
+                        <p>Punch in the city and dates of your work travel</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>See All Games</h4>
+                        <p>We check NFL, MLB, NBA, and NHL schedules instantly</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Catch a Game</h4>
+                        <p>Pick a game, grab tickets, make your trip memorable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leagues Section -->
+    <section class="leagues-section">
+        <div class="container">
+            <h2 class="section-number">02</h2>
+            <h3 class="section-title">All Major Leagues</h3>
+            
+            <div class="leagues-grid">
+                <div class="league-card nfl">
+                    <div class="league-logo">NFL</div>
+                    <div class="league-info">
+                        <span class="league-name">National Football League</span>
+                        <span class="league-season">Sep - Feb</span>
+                    </div>
+                </div>
+                <div class="league-card mlb">
+                    <div class="league-logo">MLB</div>
+                    <div class="league-info">
+                        <span class="league-name">Major League Baseball</span>
+                        <span class="league-season">Mar - Oct</span>
+                    </div>
+                </div>
+                <div class="league-card nba">
+                    <div class="league-logo">NBA</div>
+                    <div class="league-info">
+                        <span class="league-name">National Basketball Association</span>
+                        <span class="league-season">Oct - Jun</span>
+                    </div>
+                </div>
+                <div class="league-card nhl">
+                    <div class="league-logo">NHL</div>
+                    <div class="league-info">
+                        <span class="league-name">National Hockey League</span>
+                        <span class="league-season">Oct - Jun</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">YOUR NEXT TRIP.<br>YOUR NEXT GAME.</h2>
+                <p class="cta-text">Stop scrolling through team schedules. Find every game in seconds.</p>
+                <a href="#" class="cta-btn" onclick="document.getElementById('city').focus(); return false;">
+                    Start Searching
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">GAMEDAY</span>
+                </div>
+                <p class="footer-note">Work hard. Play harder.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

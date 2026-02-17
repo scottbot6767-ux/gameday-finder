@@ -1,0 +1,651 @@
+/* GAMEDAY FINDER — Bold Sports Broadcast Vibe */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Core palette */
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-raised: #1a1a1a;
+  --border: rgba(255,255,255,0.1);
+  
+  --text: #ffffff;
+  --text-dim: #888888;
+  
+  /* League colors */
+  --nfl: #013369;
+  --mlb: #bf0d3e;
+  --nba: #f58426;
+  --nhl: #000000;
+  
+  /* Accent */
+  --accent: #00ff87;
+  --accent-dim: rgba(0, 255, 135, 0.2);
+  
+  /* Type */
+  --font-display: 'Bebas Neue', Impact, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hidden { display: none !important; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('images/hero-stadium.png') center/cover no-repeat;
+  opacity: 0.5;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,10,0.7) 0%,
+    rgba(10,10,10,0.4) 40%,
+    rgba(10,10,10,0.9) 100%
+  );
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon { color: var(--accent); }
+
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.05em;
+}
+
+.nav-tagline {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* Hero Content */
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  z-index: 5;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+.badge-live {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero-title {
+  margin-bottom: 16px;
+}
+
+.title-line {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(60px, 12vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.title-line.accent {
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+}
+
+/* Search Form */
+.search-form {
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  padding-left: 12px;
+}
+
+.input-group input {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-size: 15px;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.input-group input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0 32px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+}
+
+.search-btn:active {
+  transform: translateY(0);
+}
+
+/* Hero Stats */
+.hero-stats {
+  display: flex;
+  gap: 0;
+  position: relative;
+  z-index: 5;
+  margin-top: auto;
+  margin-bottom: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.stat {
+  padding: 24px 48px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat:last-child { border-right: none; }
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 42px;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ===== RESULTS ===== */
+.results-section {
+  padding: 80px 0;
+  background: var(--surface);
+  min-height: 50vh;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.results-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.results-title .city-name {
+  color: var(--accent);
+}
+
+.results-title .date-range {
+  font-size: 18px;
+  color: var(--text-dim);
+}
+
+.clear-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.clear-btn:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 16px;
+}
+
+/* Game Card */
+.game-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.game-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.game-card-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.league-badge {
+  font-family: var(--font-display);
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.league-badge.nfl { background: var(--nfl); }
+.league-badge.mlb { background: var(--mlb); }
+.league-badge.nba { background: var(--nba); }
+.league-badge.nhl { background: #333; border: 1px solid var(--border); }
+
+.game-date {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.game-card-body {
+  padding: 24px 20px;
+}
+
+.game-matchup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.team {
+  flex: 1;
+  text-align: center;
+}
+
+.team-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.team-location {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.vs {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.game-meta {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.game-venue {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-time {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-dim);
+}
+
+.no-results-icon {
+  margin-bottom: 24px;
+  color: var(--text-dim);
+}
+
+.no-results p {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+/* ===== HOW SECTION ===== */
+.how-section {
+  padding: 120px 0;
+  background: var(--bg);
+}
+
+.section-number {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 48px;
+  margin-bottom: 60px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.step-content h4 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.step-content p {
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+/* ===== LEAGUES SECTION ===== */
+.leagues-section {
+  padding: 120px 0;
+  background: var(--surface);
+}
+
+.leagues-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.league-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.league-card:hover {
+  border-color: var(--accent);
+}
+
+.league-logo {
+  font-family: var(--font-display);
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.league-card.nfl .league-logo { color: var(--nfl); }
+.league-card.mlb .league-logo { color: var(--mlb); }
+.league-card.nba .league-logo { color: var(--nba); }
+.league-card.nhl .league-logo { color: var(--text); }
+
+.league-name {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.league-season {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+  padding: 160px 0;
+  background: var(--bg);
+  text-align: center;
+}
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 80px);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.cta-text {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  padding: 18px 48px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 60px 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo .logo-text {
+  font-size: 20px;
+}
+
+.footer-note {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .search-row {
+    flex-direction: column;
+  }
+  
+  .search-btn {
+    padding: 16px;
+    justify-content: center;
+  }
+  
+  .hero-stats {
+    flex-direction: column;
+  }
+  
+  .stat {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .stat:last-child { border-bottom: none; }
+  
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  
+  .leagues-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+  }
+  
+  .leagues-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
