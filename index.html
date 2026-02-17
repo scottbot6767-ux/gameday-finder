@@ -41,7 +41,24 @@
             
             <p class="hero-subtitle">Work trip? Catch a game while you're there.</p>
 
-            <!-- Search Form -->
+            <!-- Search Mode Toggle -->
+            <div class="search-toggle">
+                <button type="button" class="toggle-btn active" data-mode="city">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M9 9.5C10.1046 9.5 11 8.60457 11 7.5C11 6.39543 10.1046 5.5 9 5.5C7.89543 5.5 7 6.39543 7 7.5C7 8.60457 7.89543 9.5 9 9.5Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M9 16C9 16 15 11 15 7.5C15 3.91015 12.3137 1 9 1C5.68629 1 3 3.91015 3 7.5C3 11 9 16 9 16Z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                    Search by City
+                </button>
+                <button type="button" class="toggle-btn" data-mode="team">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M9 1L11.5 6L17 7L13 11L14 17L9 14L4 17L5 11L1 7L6.5 6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                    Follow Your Team
+                </button>
+            </div>
+
+            <!-- Search Form - City Mode -->
             <form class="search-form" id="searchForm">
                 <div class="search-row">
                     <div class="input-group">
@@ -75,6 +92,156 @@
                     </div>
                     <button type="submit" class="search-btn">
                         <span>Find Games</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Search Form - Team Mode (hidden by default) -->
+            <form class="search-form hidden" id="teamSearchForm">
+                <div class="search-row">
+                    <div class="input-group" style="flex: 2;">
+                        <label for="team">Your Team</label>
+                        <select id="team">
+                            <option value="">Select a team...</option>
+                            <optgroup label="NFL">
+                                <option value="NFL:49ers">San Francisco 49ers</option>
+                                <option value="NFL:Bears">Chicago Bears</option>
+                                <option value="NFL:Bengals">Cincinnati Bengals</option>
+                                <option value="NFL:Bills">Buffalo Bills</option>
+                                <option value="NFL:Broncos">Denver Broncos</option>
+                                <option value="NFL:Browns">Cleveland Browns</option>
+                                <option value="NFL:Buccaneers">Tampa Bay Buccaneers</option>
+                                <option value="NFL:Cardinals">Arizona Cardinals</option>
+                                <option value="NFL:Chargers">Los Angeles Chargers</option>
+                                <option value="NFL:Chiefs">Kansas City Chiefs</option>
+                                <option value="NFL:Colts">Indianapolis Colts</option>
+                                <option value="NFL:Commanders">Washington Commanders</option>
+                                <option value="NFL:Cowboys">Dallas Cowboys</option>
+                                <option value="NFL:Dolphins">Miami Dolphins</option>
+                                <option value="NFL:Eagles">Philadelphia Eagles</option>
+                                <option value="NFL:Falcons">Atlanta Falcons</option>
+                                <option value="NFL:Giants">New York Giants</option>
+                                <option value="NFL:Jaguars">Jacksonville Jaguars</option>
+                                <option value="NFL:Jets">New York Jets</option>
+                                <option value="NFL:Lions">Detroit Lions</option>
+                                <option value="NFL:Packers">Green Bay Packers</option>
+                                <option value="NFL:Panthers">Carolina Panthers</option>
+                                <option value="NFL:Patriots">New England Patriots</option>
+                                <option value="NFL:Raiders">Las Vegas Raiders</option>
+                                <option value="NFL:Rams">Los Angeles Rams</option>
+                                <option value="NFL:Ravens">Baltimore Ravens</option>
+                                <option value="NFL:Saints">New Orleans Saints</option>
+                                <option value="NFL:Seahawks">Seattle Seahawks</option>
+                                <option value="NFL:Steelers">Pittsburgh Steelers</option>
+                                <option value="NFL:Texans">Houston Texans</option>
+                                <option value="NFL:Titans">Tennessee Titans</option>
+                                <option value="NFL:Vikings">Minnesota Vikings</option>
+                            </optgroup>
+                            <optgroup label="MLB">
+                                <option value="MLB:Angels">Los Angeles Angels</option>
+                                <option value="MLB:Astros">Houston Astros</option>
+                                <option value="MLB:Athletics">Oakland Athletics</option>
+                                <option value="MLB:Blue Jays">Toronto Blue Jays</option>
+                                <option value="MLB:Braves">Atlanta Braves</option>
+                                <option value="MLB:Brewers">Milwaukee Brewers</option>
+                                <option value="MLB:Cardinals">St. Louis Cardinals</option>
+                                <option value="MLB:Cubs">Chicago Cubs</option>
+                                <option value="MLB:Diamondbacks">Arizona Diamondbacks</option>
+                                <option value="MLB:Dodgers">Los Angeles Dodgers</option>
+                                <option value="MLB:Giants">San Francisco Giants</option>
+                                <option value="MLB:Guardians">Cleveland Guardians</option>
+                                <option value="MLB:Mariners">Seattle Mariners</option>
+                                <option value="MLB:Marlins">Miami Marlins</option>
+                                <option value="MLB:Mets">New York Mets</option>
+                                <option value="MLB:Nationals">Washington Nationals</option>
+                                <option value="MLB:Orioles">Baltimore Orioles</option>
+                                <option value="MLB:Padres">San Diego Padres</option>
+                                <option value="MLB:Phillies">Philadelphia Phillies</option>
+                                <option value="MLB:Pirates">Pittsburgh Pirates</option>
+                                <option value="MLB:Rangers">Texas Rangers</option>
+                                <option value="MLB:Rays">Tampa Bay Rays</option>
+                                <option value="MLB:Red Sox">Boston Red Sox</option>
+                                <option value="MLB:Reds">Cincinnati Reds</option>
+                                <option value="MLB:Rockies">Colorado Rockies</option>
+                                <option value="MLB:Royals">Kansas City Royals</option>
+                                <option value="MLB:Tigers">Detroit Tigers</option>
+                                <option value="MLB:Twins">Minnesota Twins</option>
+                                <option value="MLB:White Sox">Chicago White Sox</option>
+                                <option value="MLB:Yankees">New York Yankees</option>
+                            </optgroup>
+                            <optgroup label="NBA">
+                                <option value="NBA:76ers">Philadelphia 76ers</option>
+                                <option value="NBA:Bucks">Milwaukee Bucks</option>
+                                <option value="NBA:Bulls">Chicago Bulls</option>
+                                <option value="NBA:Cavaliers">Cleveland Cavaliers</option>
+                                <option value="NBA:Celtics">Boston Celtics</option>
+                                <option value="NBA:Clippers">Los Angeles Clippers</option>
+                                <option value="NBA:Grizzlies">Memphis Grizzlies</option>
+                                <option value="NBA:Hawks">Atlanta Hawks</option>
+                                <option value="NBA:Heat">Miami Heat</option>
+                                <option value="NBA:Hornets">Charlotte Hornets</option>
+                                <option value="NBA:Jazz">Utah Jazz</option>
+                                <option value="NBA:Kings">Sacramento Kings</option>
+                                <option value="NBA:Knicks">New York Knicks</option>
+                                <option value="NBA:Lakers">Los Angeles Lakers</option>
+                                <option value="NBA:Magic">Orlando Magic</option>
+                                <option value="NBA:Mavericks">Dallas Mavericks</option>
+                                <option value="NBA:Nets">Brooklyn Nets</option>
+                                <option value="NBA:Nuggets">Denver Nuggets</option>
+                                <option value="NBA:Pacers">Indiana Pacers</option>
+                                <option value="NBA:Pelicans">New Orleans Pelicans</option>
+                                <option value="NBA:Pistons">Detroit Pistons</option>
+                                <option value="NBA:Raptors">Toronto Raptors</option>
+                                <option value="NBA:Rockets">Houston Rockets</option>
+                                <option value="NBA:Spurs">San Antonio Spurs</option>
+                                <option value="NBA:Suns">Phoenix Suns</option>
+                                <option value="NBA:Thunder">Oklahoma City Thunder</option>
+                                <option value="NBA:Timberwolves">Minnesota Timberwolves</option>
+                                <option value="NBA:Trail Blazers">Portland Trail Blazers</option>
+                                <option value="NBA:Warriors">Golden State Warriors</option>
+                                <option value="NBA:Wizards">Washington Wizards</option>
+                            </optgroup>
+                            <optgroup label="NHL">
+                                <option value="NHL:Avalanche">Colorado Avalanche</option>
+                                <option value="NHL:Blackhawks">Chicago Blackhawks</option>
+                                <option value="NHL:Blue Jackets">Columbus Blue Jackets</option>
+                                <option value="NHL:Blues">St. Louis Blues</option>
+                                <option value="NHL:Bruins">Boston Bruins</option>
+                                <option value="NHL:Canadiens">Montreal Canadiens</option>
+                                <option value="NHL:Canucks">Vancouver Canucks</option>
+                                <option value="NHL:Capitals">Washington Capitals</option>
+                                <option value="NHL:Coyotes">Arizona Coyotes</option>
+                                <option value="NHL:Devils">New Jersey Devils</option>
+                                <option value="NHL:Ducks">Anaheim Ducks</option>
+                                <option value="NHL:Flames">Calgary Flames</option>
+                                <option value="NHL:Flyers">Philadelphia Flyers</option>
+                                <option value="NHL:Golden Knights">Vegas Golden Knights</option>
+                                <option value="NHL:Hurricanes">Carolina Hurricanes</option>
+                                <option value="NHL:Islanders">New York Islanders</option>
+                                <option value="NHL:Jets">Winnipeg Jets</option>
+                                <option value="NHL:Kings">Los Angeles Kings</option>
+                                <option value="NHL:Kraken">Seattle Kraken</option>
+                                <option value="NHL:Lightning">Tampa Bay Lightning</option>
+                                <option value="NHL:Maple Leafs">Toronto Maple Leafs</option>
+                                <option value="NHL:Oilers">Edmonton Oilers</option>
+                                <option value="NHL:Panthers">Florida Panthers</option>
+                                <option value="NHL:Penguins">Pittsburgh Penguins</option>
+                                <option value="NHL:Predators">Nashville Predators</option>
+                                <option value="NHL:Rangers">New York Rangers</option>
+                                <option value="NHL:Red Wings">Detroit Red Wings</option>
+                                <option value="NHL:Sabres">Buffalo Sabres</option>
+                                <option value="NHL:Senators">Ottawa Senators</option>
+                                <option value="NHL:Sharks">San Jose Sharks</option>
+                                <option value="NHL:Stars">Dallas Stars</option>
+                                <option value="NHL:Wild">Minnesota Wild</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <span>See Road Games</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
